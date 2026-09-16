@@ -32,15 +32,14 @@
   --text: #FFFFFF;
   --text-dim: #B8C8E0;
   --text-mute: #7A8CAE;
-  /* Accents tricolores */
-  --cyan: #5B9BD5;             /* bleu clair lumineux (remplace cyan) */
-  --blue: #0055A4;             /* bleu France */
-  --deep-blue: #002395;        /* bleu marine officiel */
-  --white: #FFFFFF;            /* blanc */
+  --cyan: #5B9BD5;
+  --blue: #0055A4;
+  --deep-blue: #002395;
+  --white: #FFFFFF;
   --green: #4ADE80;
   --yellow: #E8C547;
   --orange: #F97316;
-  --red: #EF4135;              /* rouge France */
+  --red: #EF4135;
   --pink: #EF4135;
   --purple: #7C3AED;
   --glow-cyan: 0 0 12px rgba(91, 155, 213, 0.55);
@@ -60,14 +59,14 @@
   --text: #0A1428;
   --text-dim: #4A5878;
   --text-mute: #8896B8;
-  --cyan: #0055A4;             /* bleu principal */
-  --blue: #002395;             /* bleu marine */
+  --cyan: #0055A4;
+  --blue: #002395;
   --deep-blue: #001A4D;
   --white: #FFFFFF;
   --green: #16A34A;
   --yellow: #CA8A04;
   --orange: #EA580C;
-  --red: #EF4135;              /* rouge France */
+  --red: #EF4135;
   --pink: #EF4135;
   --purple: #9333EA;
   --glow-cyan: 0 0 12px rgba(0, 85, 164, 0.3);
@@ -155,7 +154,7 @@ button {
 ::-webkit-scrollbar-thumb:hover { background: var(--text-mute); }
 
 /* ============================================================
-   HEADER — bandeau tricolore
+   HEADER
    ============================================================ */
 .header {
   background: linear-gradient(180deg, var(--bg-elev) 0%, var(--bg) 100%);
@@ -428,6 +427,76 @@ button {
 }
 
 /* ============================================================
+   DIAGNOSTIC
+   ============================================================ */
+.diagnostic-panel {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--yellow);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 0.84rem;
+}
+.diagnostic-panel.show { display: block; }
+.diagnostic-panel h4 {
+  color: var(--yellow);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+.diagnostic-panel ul { list-style: none; padding: 0; margin: 0.6rem 0; }
+.diagnostic-panel li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  word-break: break-all;
+}
+.diagnostic-panel li:last-child { border-bottom: none; }
+.diagnostic-panel li .ok { color: var(--green); font-weight: 700; }
+.diagnostic-panel li .ko { color: var(--red); font-weight: 700; }
+.diagnostic-panel li .pending { color: var(--yellow); font-weight: 700; }
+.diagnostic-panel .tip {
+  margin-top: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(232, 197, 71, 0.08);
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  font-family: inherit;
+}
+.diagnostic-panel .tip code {
+  background: var(--bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--cyan);
+}
+.diagnostic-panel .tip a { color: var(--cyan); }
+.diag-btn {
+  padding: 0.5rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--yellow);
+  border-radius: 6px;
+  color: var(--yellow);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.4rem;
+}
+.diag-btn:hover { background: rgba(232, 197, 71, 0.1); }
+
+/* ============================================================
    LAYOUT
    ============================================================ */
 .dashboard-layout {
@@ -450,10 +519,7 @@ button {
   opacity: 0;
   transition: opacity 0.3s;
 }
-.sidebar-backdrop.show {
-  display: block;
-  opacity: 1;
-}
+.sidebar-backdrop.show { display: block; opacity: 1; }
 
 /* ============================================================
    SIDEBAR
@@ -739,6 +805,11 @@ button {
   z-index: 1;
 }
 .leaflet-container { background: var(--bg) !important; }
+
+/* Filtre CSS pour fond sombre sur OSM */
+[data-theme="dark"] .leaflet-tile-pane.osm-dark-filter {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.15) saturate(0.9);
+}
 
 .map-toolbar {
   display: flex;
@@ -1169,7 +1240,7 @@ button {
 .empty-state p { font-size: 0.85rem; max-width: 400px; margin: 0 auto; line-height: 1.6; }
 
 /* ============================================================
-   FOOTER — bandeau tricolore
+   FOOTER
    ============================================================ */
 .footer {
   text-align: center;
@@ -1237,34 +1308,22 @@ kbd {
 }
 
 /* ============================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE
    ============================================================ */
-
 @media (max-width: 1200px) {
   .dashboard-layout { grid-template-columns: 260px 1fr; }
   .metrics-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
 }
 
 @media (max-width: 1000px) {
-  .menu-toggle {
-    display: inline-flex !important;
-  }
-
-  .dashboard-layout {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
+  .menu-toggle { display: inline-flex !important; }
+  .dashboard-layout { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
   .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    height: 100dvh;
+    top: 0; left: 0;
+    height: 100vh; height: 100dvh;
     width: min(320px, 85vw);
-    max-height: 100vh;
-    max-height: 100dvh;
+    max-height: 100vh; max-height: 100dvh;
     z-index: 1000;
     border-radius: 0;
     border: none;
@@ -1275,90 +1334,36 @@ kbd {
     padding-bottom: max(1.2rem, env(safe-area-inset-bottom));
     overflow-y: auto;
   }
-  .sidebar.open {
-    transform: translateX(0);
-    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6);
-  }
+  .sidebar.open { transform: translateX(0); box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6); }
 }
 
 @media (max-width: 900px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: stretch;
-  }
+  .header-inner { flex-direction: column; align-items: stretch; }
   .header-brand { align-items: center; }
-  .header-controls {
-    justify-content: center;
-    width: 100%;
-  }
+  .header-controls { justify-content: center; width: 100%; }
   .header-controls .menu-toggle { order: -1; margin-right: auto; }
-
   .map-toolbar-title { width: 100%; margin-bottom: 0.4rem; }
 }
 
 @media (max-width: 768px) {
-  .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .charts-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .map-legend {
-    font-size: 0.7rem;
-    gap: 0.6rem;
-  }
-
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .charts-grid { grid-template-columns: 1fr; }
+  .map-legend { font-size: 0.7rem; gap: 0.6rem; }
   #map { height: clamp(280px, 55vh, 450px); }
-
-  .nav-tabs {
-    padding: 0.6rem 0.8rem;
-    gap: 0.3rem;
-  }
-  .nav-tab {
-    padding: 0.55rem 0.8rem;
-    font-size: 0.78rem;
-  }
+  .nav-tabs { padding: 0.6rem 0.8rem; gap: 0.3rem; }
+  .nav-tab { padding: 0.55rem 0.8rem; font-size: 0.78rem; }
 }
 
 @media (max-width: 640px) {
-  .header {
-    padding: 0.8rem 1rem;
-  }
+  .header { padding: 0.8rem 1rem; }
+  .main-title { font-size: clamp(1rem, 5vw, 1.3rem); }
+  .header-controls .icon-btn { width: 40px; height: 40px; font-size: 1rem; }
+  .live-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .metric-card { padding: 0.85rem; }
+  .metric-value { font-size: 1.35rem; }
 
-  .main-title {
-    font-size: clamp(1rem, 5vw, 1.3rem);
-  }
-
-  .header-controls .icon-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .live-badge {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.8rem;
-  }
-
-  .metrics-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
-  }
-
-  .metric-card {
-    padding: 0.85rem;
-  }
-
-  .metric-value {
-    font-size: 1.35rem;
-  }
-
-  .eq-card {
-    grid-template-columns: auto 1fr;
-    gap: 0.7rem;
-  }
+  .eq-card { grid-template-columns: auto 1fr; gap: 0.7rem; }
   .eq-actions {
     grid-column: 1 / -1;
     flex-direction: row;
@@ -1370,14 +1375,10 @@ kbd {
     padding-top: 0.6rem;
   }
 
-  .modal-backdrop {
-    align-items: flex-end;
-    padding: 0;
-  }
+  .modal-backdrop { align-items: flex-end; padding: 0; }
   .modal {
     max-width: 100%;
-    max-height: 92vh;
-    max-height: 92dvh;
+    max-height: 92vh; max-height: 92dvh;
     border-radius: 16px 16px 0 0;
     border-bottom: none;
     animation: modalBottomIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1386,77 +1387,31 @@ kbd {
     from { opacity: 0; transform: translateY(100%); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .modal-head {
-    border-radius: 16px 16px 0 0;
-  }
-
+  .modal-head { border-radius: 16px 16px 0 0; }
   .modal-actions button,
-  .modal-actions a {
-    flex: 1 1 100%;
-    min-width: 0;
-  }
+  .modal-actions a { flex: 1 1 100%; min-width: 0; }
 
   .toast-container {
-    left: 0.75rem;
-    right: 0.75rem;
+    left: 0.75rem; right: 0.75rem;
     bottom: max(0.75rem, env(safe-area-inset-bottom));
-    max-width: none;
-    align-items: stretch;
+    max-width: none; align-items: stretch;
   }
-  .toast {
-    max-width: none;
-    width: 100%;
-    font-size: 0.82rem;
-  }
+  .toast { max-width: none; width: 100%; font-size: 0.82rem; }
 
-  .filter-chips-bar {
-    font-size: 0.72rem;
-    padding: 0.4rem 0.8rem;
-  }
+  .filter-chips-bar { font-size: 0.72rem; padding: 0.4rem 0.8rem; }
   .filter-chips-label { font-size: 0.66rem; }
-
-  .map-mode-btn {
-    padding: 0.45rem 0.7rem;
-    font-size: 0.72rem;
-  }
-
+  .map-mode-btn { padding: 0.45rem 0.7rem; font-size: 0.72rem; }
   .sys-stat { font-size: 0.78rem; }
-
-  .export-btn {
-    font-size: 0.75rem;
-    padding: 0.6rem 0.4rem;
-  }
+  .export-btn { font-size: 0.75rem; padding: 0.6rem 0.4rem; }
 }
 
 @media (max-width: 480px) {
-  .metrics-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .metric-card {
-    padding: 0.8rem 0.9rem;
-  }
-
-  .metric-value {
-    font-size: 1.5rem;
-  }
-
-  .nav-tab {
-    padding: 0.5rem 0.7rem;
-    font-size: 0.74rem;
-  }
-
-  .range-toggle button {
-    font-size: 0.72rem;
-    padding: 0.5rem 0.2rem;
-  }
-
-  .map-legend {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-  }
-
+  .metrics-grid { grid-template-columns: 1fr; }
+  .metric-card { padding: 0.8rem 0.9rem; }
+  .metric-value { font-size: 1.5rem; }
+  .nav-tab { padding: 0.5rem 0.7rem; font-size: 0.74rem; }
+  .range-toggle button { font-size: 0.72rem; padding: 0.5rem 0.2rem; }
+  .map-legend { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
   .modal-body { padding: 1rem; }
   .modal-head { padding: 0.9rem 1rem; }
 }
@@ -1465,49 +1420,24 @@ kbd {
   .header { padding: 0.7rem 0.8rem; }
   .main-title { font-size: 1rem; }
   .header-subtitle { font-size: 0.65rem; }
-
-  .header-controls .icon-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
-  }
-
+  .header-controls .icon-btn { width: 36px; height: 36px; font-size: 0.9rem; }
   .dashboard-layout { padding: 0.7rem; }
-
   .metric-label { font-size: 0.62rem; }
   .metric-value { font-size: 1.3rem; }
-
-  .magnitude-badge {
-    width: 44px;
-    height: 44px;
-    font-size: 0.85rem;
-  }
-
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
+  .magnitude-badge { width: 44px; height: 44px; font-size: 0.85rem; }
+  .detail-grid { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 1900px) {
-  .dashboard-layout {
-    max-width: 2000px;
-    grid-template-columns: 320px 1fr;
-  }
+  .dashboard-layout { max-width: 2000px; grid-template-columns: 320px 1fr; }
   #map { height: 700px; }
   .chart-card .chart-wrap { height: 320px; }
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .card:hover,
-  .metric-card:hover,
-  .alert-card:hover { transform: none; }
-
+  .card:hover, .metric-card:hover, .alert-card:hover { transform: none; }
   .eq-card:hover { transform: none; }
-
-  .icon-btn:active,
-  .nav-tab:active,
-  .refresh-btn:active,
-  .map-mode-btn:active {
+  .icon-btn:active, .nav-tab:active, .refresh-btn:active, .map-mode-btn:active {
     transform: scale(0.96);
     transition: transform 0.1s;
   }
@@ -1520,17 +1450,9 @@ kbd {
 }
 
 @media print {
-  .header-controls,
-  .nav-tabs,
-  .filter-chips-bar,
-  .sidebar,
-  .sidebar-backdrop,
-  .toast-container,
-  .modal-backdrop,
-  .emergency-banner,
-  .map-toolbar,
-  .export-buttons { display: none !important; }
-
+  .header-controls, .nav-tabs, .filter-chips-bar, .sidebar, .sidebar-backdrop,
+  .toast-container, .modal-backdrop, .emergency-banner, .map-toolbar,
+  .export-buttons, .diagnostic-panel { display: none !important; }
   .dashboard-layout { display: block; padding: 0; }
   .tab-content { display: block !important; page-break-inside: avoid; }
   .card, .metric-card, .chart-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
@@ -1679,6 +1601,13 @@ kbd {
       <span id="statusText">Chargement des données sismiques depuis l'USGS…</span>
     </div>
 
+    <div class="diagnostic-panel" id="diagnosticPanel">
+      <h4>🔧 Diagnostic de connexion USGS</h4>
+      <ul id="diagnosticList"></ul>
+      <div class="tip" id="diagnosticTip">Test en cours…</div>
+      <button class="diag-btn" id="diagRetryBtn">🔄 Relancer le diagnostic</button>
+    </div>
+
     <div class="metrics-grid" id="metricsGrid" aria-label="Indicateurs clés"></div>
 
     <section class="tab-content active" id="tab-map" role="tabpanel">
@@ -1751,8 +1680,25 @@ kbd {
 
         <h4 style="color:var(--cyan);font-size:0.85rem;margin:1.4rem 0 0.5rem;text-transform:uppercase;">🔗 Source des données</h4>
         <p style="color:var(--text-dim);font-size:0.85rem;line-height:1.7;">
-          USGS Earthquake Hazards Program — API GeoJSON publique, mise à jour en continu toutes les minutes.<br>
+          USGS Earthquake Hazards Program — API GeoJSON publique.<br>
           <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/" target="_blank" rel="noopener" style="color:var(--cyan);">earthquake.usgs.gov/earthquakes/feed/v1.0/</a>
+        </p>
+
+        <h4 style="color:var(--cyan);font-size:0.85rem;margin:1.4rem 0 0.5rem;text-transform:uppercase;">🗺️ Cartographie</h4>
+        <p style="color:var(--text-dim);font-size:0.85rem;line-height:1.7;">
+          Tous les fonds de carte sont <strong>gratuits et sans clé API</strong> :
+        </p>
+        <ul style="color:var(--text-dim);font-size:0.85rem;line-height:1.9;padding-left:1.2rem;">
+          <li><strong>Sombre</strong> : OpenStreetMap filtré en CSS (inversion de couleurs)</li>
+          <li><strong>Clair</strong> : OpenStreetMap standard</li>
+          <li><strong>Satellite</strong> : ESRI World Imagery (Maxar, Earthstar Geographics)</li>
+          <li><strong>Topographique</strong> : OpenTopoMap (relief, courbes de niveau)</li>
+        </ul>
+
+        <h4 style="color:var(--cyan);font-size:0.85rem;margin:1.4rem 0 0.5rem;text-transform:uppercase;">🛡️ Connexion robuste</h4>
+        <p style="color:var(--text-dim);font-size:0.85rem;line-height:1.7;">
+          Le dashboard utilise <strong>4 sources en cascade</strong> : USGS direct → AllOrigins →
+          CorsProxy.io → ThingProxy. Si la première échoue, la suivante prend le relais automatiquement.
         </p>
 
         <h4 style="color:var(--cyan);font-size:0.85rem;margin:1.4rem 0 0.5rem;text-transform:uppercase;">⌨️ Raccourcis clavier</h4>
@@ -1767,8 +1713,8 @@ kbd {
 
         <h4 style="color:var(--cyan);font-size:0.85rem;margin:1.4rem 0 0.5rem;text-transform:uppercase;">⚙️ Technologies</h4>
         <p style="color:var(--text-dim);font-size:0.85rem;line-height:1.7;">
-          HTML5 · CSS3 (variables, grid, animations) · JavaScript ES2022 · Leaflet.js ·
-          Leaflet.markercluster · Leaflet.heat · Chart.js · API USGS GeoJSON
+          HTML5 · CSS3 · JavaScript ES2022 · Leaflet.js · MarkerCluster · Leaflet.heat · Chart.js ·
+          OpenStreetMap · ESRI World Imagery · OpenTopoMap · API USGS GeoJSON
         </p>
 
         <h4 style="color:var(--cyan);font-size:0.85rem;margin:1.4rem 0 0.5rem;text-transform:uppercase;">🧮 Formules utilisées</h4>
@@ -1842,17 +1788,25 @@ const FEEDS = {
   week:  `${USGS_BASE}/all_week.geojson`,
   month: `${USGS_BASE}/all_month.geojson`
 };
+
+const CORS_PROXIES = [
+  { name: 'Direct USGS',  build: u => u,                                                              timeout: 30000 },
+  { name: 'AllOrigins',   build: u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),  timeout: 45000 },
+  { name: 'CorsProxy.io', build: u => 'https://corsproxy.io/?' + encodeURIComponent(u),               timeout: 45000 },
+  { name: 'ThingProxy',   build: u => 'https://thingproxy.freeboard.io/fetch/' + u,                   timeout: 45000 }
+];
+
 const REFRESH_INTERVAL = 60000;
 const LS_KEYS = {
-  theme: 'seismo_theme_v2',
-  favorites: 'seismo_favorites_v2',
-  sound: 'seismo_sound_v2',
-  cache: 'seismo_cache_v2',
-  range: 'seismo_range_v2'
+  theme: 'seismo_theme_v4',
+  favorites: 'seismo_favorites_v4',
+  sound: 'seismo_sound_v4',
+  cache: 'seismo_cache_v4',
+  range: 'seismo_range_v4',
+  basemap: 'seismo_basemap_v4'
 };
 const SEVERITY_ORDER = { green: 1, yellow: 2, orange: 3, red: 4 };
 
-/* Palette tricolore pour les graphiques */
 const PALETTE = {
   blueDark: '#002395',
   blue: '#0055A4',
@@ -1874,6 +1828,9 @@ const state = {
   markersLayer: null,
   clustersLayer: null,
   heatLayer: null,
+  baseLayers: {},
+  currentBase: null,
+  currentBaseKey: 'auto',
   mapMode: 'markers',
   searchText: '',
   regionFilter: '',
@@ -1891,7 +1848,8 @@ const state = {
   soundEnabled: false,
   currentModal: null,
   fetchedAt: null,
-  isOnline: navigator.onLine
+  isOnline: navigator.onLine,
+  activeProxy: null
 };
 
 /* ============================================================================
@@ -2012,6 +1970,117 @@ function playAlertSound() {
 }
 
 /* ============================================================================
+   FETCH AVEC FALLBACK
+   ============================================================================ */
+async function fetchWithFallback(url, onProgress) {
+  let lastError = null;
+
+  for (let i = 0; i < CORS_PROXIES.length; i++) {
+    const proxy = CORS_PROXIES[i];
+    const finalUrl = proxy.build(url);
+
+    if (onProgress) {
+      onProgress(i === 0
+        ? `Connexion à l'USGS…`
+        : `Tentative ${i + 1}/${CORS_PROXIES.length} : ${proxy.name}…`
+      );
+    }
+
+    try {
+      const controller = new AbortController();
+      const to = setTimeout(() => controller.abort(), proxy.timeout);
+      const resp = await fetch(finalUrl, {
+        signal: controller.signal,
+        cache: 'no-store',
+        headers: { 'Accept': 'application/json' }
+      });
+      clearTimeout(to);
+
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      if (!data.features) throw new Error('Format de réponse invalide');
+
+      state.activeProxy = proxy.name;
+      if (i > 0) console.log(`✅ Source utilisée : ${proxy.name}`);
+      return data;
+
+    } catch (err) {
+      lastError = err;
+      console.warn(`❌ ${proxy.name} : ${err.message}`);
+      if (i < CORS_PROXIES.length - 1) {
+        await new Promise(r => setTimeout(r, 400));
+      }
+    }
+  }
+
+  throw lastError || new Error('Toutes les sources ont échoué');
+}
+
+/* ============================================================================
+   DIAGNOSTIC
+   ============================================================================ */
+async function runDiagnostics() {
+  const panel = $('diagnosticPanel');
+  const list = $('diagnosticList');
+  const tip = $('diagnosticTip');
+  panel.classList.add('show');
+  list.innerHTML = '';
+  tip.textContent = 'Test en cours…';
+
+  const testUrl = FEEDS.week;
+  const results = [];
+
+  for (let i = 0; i < CORS_PROXIES.length; i++) {
+    const proxy = CORS_PROXIES[i];
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="pending">⏳</span> <strong>${proxy.name}</strong> — test…`;
+    list.appendChild(li);
+
+    const t0 = performance.now();
+    try {
+      const controller = new AbortController();
+      const to = setTimeout(() => controller.abort(), proxy.timeout);
+      const url = proxy.build(testUrl);
+      const resp = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+      clearTimeout(to);
+      const ms = Math.round(performance.now() - t0);
+
+      if (resp.ok) {
+        const data = await resp.json();
+        const n = (data.features || []).length;
+        li.innerHTML = `<span class="ok">✅ OK</span> <strong>${proxy.name}</strong> — ${n} séismes en ${ms} ms`;
+        results.push({ proxy, ok: true, count: n });
+      } else {
+        li.innerHTML = `<span class="ko">❌ HTTP ${resp.status}</span> <strong>${proxy.name}</strong> (${ms} ms)`;
+        results.push({ proxy, ok: false, error: `HTTP ${resp.status}` });
+      }
+    } catch (err) {
+      const ms = Math.round(performance.now() - t0);
+      const msg = err.name === 'AbortError' ? 'Timeout' : (err.message || 'Erreur réseau');
+      li.innerHTML = `<span class="ko">❌ ${msg}</span> <strong>${proxy.name}</strong> (${ms} ms)`;
+      results.push({ proxy, ok: false, error: msg });
+    }
+  }
+
+  const winners = results.filter(r => r.ok);
+  if (winners.length) {
+    tip.innerHTML = `✅ <strong>${winners.length}</strong> source(s) fonctionnelle(s). Le dashboard utilise automatiquement la première disponible.`;
+  } else {
+    tip.innerHTML = `
+      ❌ <strong>Aucune source n'est accessible.</strong><br>
+      Causes possibles :<br>
+      • Vous ouvrez le fichier en <code>file://</code> (bloqué par le navigateur)<br>
+      • Un bloqueur de pub bloque <code>earthquake.usgs.gov</code><br>
+      • Votre réseau/entreprise restreint l'accès<br>
+      <br>
+      <strong>Solutions :</strong><br>
+      1. Servez le fichier via un serveur local : <code>python -m http.server 8000</code> puis ouvrez <code>http://localhost:8000/</code><br>
+      2. Désactivez temporairement les extensions (uBlock, Privacy Badger…)<br>
+      3. Testez l'URL directement : <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson" target="_blank">cliquez ici</a>`;
+  }
+}
+
+/* ============================================================================
    THEME
    ============================================================================ */
 function initTheme() {
@@ -2027,6 +2096,7 @@ function toggleTheme() {
   localStorage.setItem(LS_KEYS.theme, next);
   $('themeIcon').textContent = next === 'dark' ? '☀️' : '🌙';
   updateChartColors();
+  updateBaseLayerForTheme();
 }
 
 /* ============================================================================
@@ -2101,13 +2171,9 @@ async function loadEarthquakes(silent = false) {
   if (!silent) setStatus('loading', `Chargement depuis l'USGS (${state.timeRange})…`);
 
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
-    const resp = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeout);
-
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const data = await resp.json();
+    const data = await fetchWithFallback(url, (msg) => {
+      if (!silent) setStatus('loading', msg);
+    });
 
     const features = data.features || [];
     const previousIds = new Set(state.earthquakes.map(e => e.id));
@@ -2166,17 +2232,20 @@ async function loadEarthquakes(silent = false) {
 
     populateRegionFilter();
     applyFilters();
-    setStatus('ok', `✅ ${state.earthquakes.length} séismes — MAJ à ${state.lastUpdate.toLocaleTimeString('fr-FR')}`);
+
+    const proxyInfo = state.activeProxy && state.activeProxy !== 'Direct USGS'
+      ? ` (via ${state.activeProxy})`
+      : '';
+    setStatus('ok', `✅ ${state.earthquakes.length} séismes${proxyInfo} — MAJ à ${state.lastUpdate.toLocaleTimeString('fr-FR')}`);
     if (!silent) showToast(`✅ ${state.earthquakes.length} séismes mis à jour`, 'success');
 
+    $('diagnosticPanel').classList.remove('show');
+
   } catch (err) {
-    console.error(err);
-    if (err.name === 'AbortError') {
-      setStatus('error', `❌ Timeout — serveur USGS injoignable`);
-    } else {
-      setStatus('error', `❌ Erreur : ${err.message}`);
-    }
-    showToast('❌ Impossible de charger les données USGS', 'error');
+    console.error('Erreur de chargement :', err);
+    setStatus('error', `❌ Impossible de joindre l'USGS — lancement du diagnostic…`);
+    showToast('❌ Connexion USGS impossible', 'error');
+    await runDiagnostics();
     restoreFromCache();
   }
 }
@@ -2192,7 +2261,7 @@ function restoreFromCache() {
     populateRegionFilter();
     applyFilters();
     const age = Math.round((Date.now() - cache.at) / 60000);
-    setStatus('offline', `📴 Données en cache (il y a ${age} min)`);
+    setStatus('offline', `📴 Données en cache (il y a ${age} min) — diagnostic disponible ci-dessus`);
     showToast(`📴 Données restaurées du cache (${age} min)`, 'warning');
     return true;
   } catch (e) { return false; }
@@ -2254,7 +2323,6 @@ function resetFilters() {
   applyFilters();
   showToast('Filtres réinitialisés', 'info');
 }
-
 window.resetFilters = resetFilters;
 
 function renderFilterChips() {
@@ -2384,7 +2452,7 @@ function updateMetrics() {
 }
 
 /* ============================================================================
-   MAP
+   MAP — Cartographie 100% libre, sans API key
    ============================================================================ */
 function initMap() {
   if (state.map) return;
@@ -2399,26 +2467,51 @@ function initMap() {
     fullscreenControlOptions: { position: 'topleft' }
   });
 
+  /* Fonds de carte — tous gratuits, aucune API key requise */
   const tileLayers = {
-    dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OSM &copy; CARTO',
-      subdomains: 'abcd',
+    /* 🌑 OpenStreetMap standard (sera filtré en CSS pour le thème sombre) */
+    osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abc',
       maxZoom: 19
     }),
-    light: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OSM &copy; CARTO',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }),
+
+    /* 🛰️ ESRI World Imagery — satellite gratuit (Maxar, Earthstar) */
     satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: '&copy; Esri',
+      attribution: '&copy; Esri, Maxar, Earthstar Geographics, and the GIS User Community',
       maxZoom: 19
+    }),
+
+    /* 🗺️ OpenTopoMap — relief, courbes de niveau */
+    topo: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | &copy; <a href="https://opentopomap.org">OpenTopoMap</a>',
+      subdomains: 'abc',
+      maxZoom: 17
+    }),
+
+    /* 🏔️ ESRI World Terrain — relief topographique */
+    terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri',
+      maxZoom: 13
     })
   };
 
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  tileLayers[currentTheme === 'light' ? 'light' : 'dark'].addTo(state.map);
+  state.baseLayers = tileLayers;
 
+  /* Déterminer le fond initial en fonction du thème */
+  const theme = document.documentElement.getAttribute('data-theme');
+  const savedBase = localStorage.getItem(LS_KEYS.basemap);
+
+  let initialKey;
+  if (savedBase && tileLayers[savedBase]) {
+    initialKey = savedBase;
+  } else {
+    initialKey = 'osm'; // Toujours OSM par défaut
+  }
+
+  setBaseLayer(initialKey);
+
+  /* Couches d'overlay */
   state.markersLayer = L.layerGroup();
   state.clustersLayer = L.markerClusterGroup({
     maxClusterRadius: 50,
@@ -2435,18 +2528,65 @@ function initMap() {
     }
   });
 
-  const baseLayers = {
-    '🌑 Sombre': tileLayers.dark,
-    '☀️ Clair': tileLayers.light,
-    '🛰️ Satellite': tileLayers.satellite
+  /* Contrôle de sélection des couches */
+  const baseLayersControl = {
+    '🌍 OpenStreetMap': tileLayers.osm,
+    '🛰️ Satellite (ESRI)': tileLayers.satellite,
+    '🗺️ Topographique': tileLayers.topo,
+    '🏔️ Relief (ESRI)': tileLayers.terrain
   };
   const overlayLayers = {
     '📍 Marqueurs': state.markersLayer,
     '🔵 Clusters': state.clustersLayer
   };
-  L.control.layers(baseLayers, overlayLayers, { position: 'topright', collapsed: true }).addTo(state.map);
+  L.control.layers(baseLayersControl, overlayLayers, { position: 'topright', collapsed: true }).addTo(state.map);
+
+  /* Écouter les changements de fond */
+  state.map.on('baselayerchange', (e) => {
+    for (const [key, layer] of Object.entries(tileLayers)) {
+      if (layer === e.layer) {
+        state.currentBaseKey = key;
+        localStorage.setItem(LS_KEYS.basemap, key);
+        applyTileFilter(key);
+        break;
+      }
+    }
+  });
 
   setMapMode('markers');
+}
+
+function setBaseLayer(key) {
+  Object.values(state.baseLayers).forEach(l => {
+    if (state.map.hasLayer(l)) state.map.removeLayer(l);
+  });
+  const layer = state.baseLayers[key];
+  if (layer) {
+    layer.addTo(state.map);
+    state.currentBase = layer;
+    state.currentBaseKey = key;
+    applyTileFilter(key);
+  }
+}
+
+/* Applique le filtre CSS pour le fond sombre sur OSM uniquement */
+function applyTileFilter(key) {
+  if (!state.map) return;
+  const tilePane = state.map.getPane('tilePane');
+  if (!tilePane) return;
+
+  if (key === 'osm') {
+    const theme = document.documentElement.getAttribute('data-theme');
+    tilePane.classList.toggle('osm-dark-filter', theme === 'dark');
+  } else {
+    tilePane.classList.remove('osm-dark-filter');
+  }
+}
+
+/* Appelé lors du changement de thème */
+function updateBaseLayerForTheme() {
+  if (!state.map) return;
+  applyTileFilter(state.currentBaseKey);
 }
 
 function setMapMode(mode) {
@@ -2487,7 +2627,7 @@ function renderMap() {
       color: e.tsunami ? PALETTE.white : color,
       weight: e.tsunami ? 2.5 : 1,
       opacity: 0.95,
-      fillOpacity: 0.7
+      fillOpacity: 0.75
     });
 
     marker.bindPopup(buildPopup(e));
@@ -2507,7 +2647,6 @@ function renderMap() {
       radius: 22,
       blur: 18,
       maxZoom: 8,
-      /* Dégradé tricolore : bleu → blanc → rouge */
       gradient: {
         0.0: '#002395',
         0.35: '#0055A4',
@@ -2563,7 +2702,6 @@ function renderList() {
   }
 
   const display = list.slice(0, 100);
-
   host.innerHTML = display.map(e => renderEqCard(e)).join('');
 
   if (list.length > 100) {
@@ -2769,85 +2907,30 @@ function openDetail(id) {
 
     <h4>📊 Données techniques</h4>
     <div class="detail-grid">
-      <div class="detail-item">
-        <div class="label">Magnitude</div>
-        <div class="value">${e.mag.toFixed(1)} M</div>
-      </div>
-      <div class="detail-item">
-        <div class="label">Profondeur</div>
-        <div class="value">${e.depth.toFixed(1)} km</div>
-      </div>
-      <div class="detail-item">
-        <div class="label">Classification</div>
-        <div class="value">${depthLabel(e.depth)}</div>
-      </div>
-      <div class="detail-item">
-        <div class="label">Latitude</div>
-        <div class="value">${e.lat.toFixed(4)}°</div>
-      </div>
-      <div class="detail-item">
-        <div class="label">Longitude</div>
-        <div class="value">${e.lon.toFixed(4)}°</div>
-      </div>
-      <div class="detail-item">
-        <div class="label">Région</div>
-        <div class="value">${esc(e.region)}</div>
-      </div>
+      <div class="detail-item"><div class="label">Magnitude</div><div class="value">${e.mag.toFixed(1)} M</div></div>
+      <div class="detail-item"><div class="label">Profondeur</div><div class="value">${e.depth.toFixed(1)} km</div></div>
+      <div class="detail-item"><div class="label">Classification</div><div class="value">${depthLabel(e.depth)}</div></div>
+      <div class="detail-item"><div class="label">Latitude</div><div class="value">${e.lat.toFixed(4)}°</div></div>
+      <div class="detail-item"><div class="label">Longitude</div><div class="value">${e.lon.toFixed(4)}°</div></div>
+      <div class="detail-item"><div class="label">Région</div><div class="value">${esc(e.region)}</div></div>
     </div>
 
     <h4>⚡ Énergie & impact</h4>
     <div class="detail-grid">
-      <div class="detail-item">
-        <div class="label">Énergie libérée</div>
-        <div class="value">${fmtEnergy(energyJoules(e.mag))}</div>
-      </div>
-      <div class="detail-item">
-        <div class="label">Équivalent TNT</div>
-        <div class="value">${(energyJoules(e.mag) / 4.184e9).toExponential(2)} t</div>
-      </div>
-      ${e.felt ? `
-      <div class="detail-item">
-        <div class="label">Ressenti par</div>
-        <div class="value">${e.felt} pers.</div>
-      </div>` : ''}
-      ${e.sig ? `
-      <div class="detail-item">
-        <div class="label">Significance</div>
-        <div class="value">${e.sig}</div>
-      </div>` : ''}
-      ${e.mmi ? `
-      <div class="detail-item">
-        <div class="label">MMI (intensité)</div>
-        <div class="value">${e.mmi}</div>
-      </div>` : ''}
+      <div class="detail-item"><div class="label">Énergie libérée</div><div class="value">${fmtEnergy(energyJoules(e.mag))}</div></div>
+      <div class="detail-item"><div class="label">Équivalent TNT</div><div class="value">${(energyJoules(e.mag) / 4.184e9).toExponential(2)} t</div></div>
+      ${e.felt ? `<div class="detail-item"><div class="label">Ressenti par</div><div class="value">${e.felt} pers.</div></div>` : ''}
+      ${e.sig ? `<div class="detail-item"><div class="label">Significance</div><div class="value">${e.sig}</div></div>` : ''}
+      ${e.mmi ? `<div class="detail-item"><div class="label">MMI (intensité)</div><div class="value">${e.mmi}</div></div>` : ''}
     </div>
 
     <h4>🔬 Métadonnées de détection</h4>
     <div class="detail-grid">
-      <div class="detail-item">
-        <div class="label">ID</div>
-        <div class="value" style="font-size:0.8rem;word-break:break-all;">${esc(e.id)}</div>
-      </div>
-      ${e.net ? `
-      <div class="detail-item">
-        <div class="label">Réseau</div>
-        <div class="value">${esc(e.net)}</div>
-      </div>` : ''}
-      ${e.nst ? `
-      <div class="detail-item">
-        <div class="label">Stations</div>
-        <div class="value">${e.nst}</div>
-      </div>` : ''}
-      ${e.rms ? `
-      <div class="detail-item">
-        <div class="label">RMS</div>
-        <div class="value">${e.rms.toFixed(2)}</div>
-      </div>` : ''}
-      ${e.gap ? `
-      <div class="detail-item">
-        <div class="label">Gap azimutal</div>
-        <div class="value">${e.gap.toFixed(0)}°</div>
-      </div>` : ''}
+      <div class="detail-item"><div class="label">ID</div><div class="value" style="font-size:0.8rem;word-break:break-all;">${esc(e.id)}</div></div>
+      ${e.net ? `<div class="detail-item"><div class="label">Réseau</div><div class="value">${esc(e.net)}</div></div>` : ''}
+      ${e.nst ? `<div class="detail-item"><div class="label">Stations</div><div class="value">${e.nst}</div></div>` : ''}
+      ${e.rms ? `<div class="detail-item"><div class="label">RMS</div><div class="value">${e.rms.toFixed(2)}</div></div>` : ''}
+      ${e.gap ? `<div class="detail-item"><div class="label">Gap azimutal</div><div class="value">${e.gap.toFixed(0)}°</div></div>` : ''}
     </div>
 
     <div class="modal-actions">
@@ -2895,7 +2978,7 @@ function closeDetail() {
 }
 
 /* ============================================================================
-   CHARTS — palette tricolore
+   CHARTS
    ============================================================================ */
 function getChartDefaults() {
   const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-dim').trim();
@@ -2904,19 +2987,11 @@ function getChartDefaults() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        labels: { color: textColor, font: { size: 11 }, boxWidth: 12 }
-      }
+      legend: { labels: { color: textColor, font: { size: 11 }, boxWidth: 12 } }
     },
     scales: {
-      x: {
-        ticks: { color: textColor, font: { size: 10 } },
-        grid: { color: gridColor + '80' }
-      },
-      y: {
-        ticks: { color: textColor, font: { size: 10 } },
-        grid: { color: gridColor + '80' }
-      }
+      x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor + '80' } },
+      y: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor + '80' } }
     }
   };
 }
@@ -3015,10 +3090,8 @@ function renderRegionsChart() {
     y: { ticks: { color: opts.scales.y.ticks.color, font: { size: 10 } }, grid: { display: false } }
   };
 
-  /* Barres en dégradé bleu → rouge */
   const colors = top.map((_, i) => {
     const t = i / Math.max(top.length - 1, 1);
-    /* Interpolation bleu marine → rouge France */
     const r = Math.round(0 + t * 239);
     const g = Math.round(35 + t * (65 - 35));
     const b = Math.round(149 + t * (53 - 149));
@@ -3383,6 +3456,8 @@ $('exportCsvBtn').addEventListener('click', exportCSV);
 $('exportJsonBtn').addEventListener('click', exportJSON);
 $('copyLinkBtn').addEventListener('click', copyLink);
 $('printBtn').addEventListener('click', () => window.print());
+
+$('diagRetryBtn')?.addEventListener('click', runDiagnostics);
 
 document.addEventListener('keydown', e => {
   const inInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
