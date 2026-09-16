@@ -590,15 +590,7 @@ SOFTWARE.
 - **Leaflet** — bibliothèque cartographique open-source
 - **Chart.js** — bibliothèque de graphiques
 - **EMSC** et **Seismic Portal** — sources alternatives
-
----
-
-## 📬 Contact
-
-- **Dépôt** : https://github.com/gunout/surveillance-sismique-mondiale
-- **Issues** : https://github.com/gunout/surveillance-sismique-mondiale/issues
-- **Discussions** : https://github.com/gunout/surveillance-sismique-mondiale/discussions
-
+  
 ---
 
 📊 Outil pédagogique non officiel — Non affilié à l'USGS ni à l'État français
